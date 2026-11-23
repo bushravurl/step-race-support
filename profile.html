@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Step Race’te birlikte hareket et. Paylaşılan profili aç ve arkadaş ekle.">
+  <title>Birlikte yarışalım · Step Race</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:#f3f7f3;color:#214c39;font-family:system-ui,-apple-system,sans-serif}main{max-width:440px;width:100%;background:white;padding:32px;border:1px solid #e1e8e2;border-radius:28px}small{font-weight:800;letter-spacing:2px;color:#7b8a80}h1{font-size:36px;line-height:1.1;letter-spacing:-1px;margin:24px 0 16px}p{line-height:1.6;color:#718176}a{display:block;text-align:center;text-decoration:none;border-radius:14px;padding:15px;color:#214c39;border:1px solid #dce5dd;margin-top:12px;font-weight:700}.primary{background:#214c39;color:white;border-color:#214c39}.stores{display:flex;gap:10px}.stores a{flex:1;font-size:13px}.foot{font-size:12px;margin-top:26px}.brand{font-size:20px;font-weight:800;margin-bottom:28px}.error{color:#a34635}[hidden]{display:none!important}
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand">Step Race</div>
+  <small id="eyebrow">BİRLİKTE DAHA FAZLA ADIM</small>
+  <h1 id="title">Birlikte yarışalım.</h1>
+  <p id="description">Paylaşılan profili Step Race’te aç, arkadaş olarak ekle ve ilk yarışını başlat.</p>
+  <a id="open" class="primary" hidden>Profili uygulamada aç ↗</a>
+  <p id="error" class="error" hidden>Bu profil bağlantısı geçerli değil. Arkadaşından bağlantıyı yeniden paylaşmasını iste.</p>
+  <p id="install">Step Race yüklü değilse aşağıdan indir. Ardından bu bağlantıya geri dönüp profili aç.</p>
+  <div class="stores">
+    <a href="https://apps.apple.com/app/id6818082839">App Store</a>
+    <a href="https://play.google.com/store/apps/details?id=com.steprace.app">Google Play</a>
+  </div>
+  <p class="foot" id="privacy">Profil uygulamada açılır. Arkadaşlık isteği sen onaylamadan gönderilmez.</p>
+</main>
+<script>
+  const english = !navigator.language.toLowerCase().startsWith('tr');
+  if (english) {
+    document.documentElement.lang = 'en'; document.title = 'Race together · Step Race';
+    const copy = {eyebrow: 'MORE STEPS TOGETHER', title: 'Let’s race together.',
+      description: 'Open the shared profile in Step Race, add a friend and start your first race.',
+      open: 'Open profile in the app ↗', error: 'This profile link is invalid. Ask your friend to share it again.',
+      install: 'Don’t have Step Race? Install it below, then return to this link to open the profile.',
+      privacy: 'The profile opens in the app. A friend request is only sent when you choose to add them.'};
+    for (const [key, value] of Object.entries(copy)) document.getElementById(key).textContent = value;
+  }
+  const id = new URLSearchParams(location.search).get('id');
+  if (id && /^[a-f0-9]{24}$/i.test(id)) {
+    const open = document.getElementById('open'); open.href = 'steprace://profile/' + id; open.hidden = false;
+  } else document.getElementById('error').hidden = false;
+</script>
+</body>
+</html>
